@@ -40,6 +40,7 @@ class Test2Activity : AppCompatActivity() {
 //        println(child)
     }
 
+
     fun getName(): String? {
         return null
     }

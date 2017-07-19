@@ -9,7 +9,10 @@ import android.support.v7.app.AppCompatActivity
 class Test2Activity : AppCompatActivity() {
     val range: IntRange = 0..1024 // [0, 1024]
     val range_exclusive: IntRange = 0 until 1024 // [0, 1024) = [0, 1023]
-
+    //基本数据类型IntArray，其他是Array<类型> = arrayOf
+    val arrayOfInt: IntArray = intArrayOf(1,3,5,7)
+    val arrayOfChar: CharArray = charArrayOf('H', 'e','l','l','o','W','o','r','l','d')
+    val arrayOfString: Array<String> = arrayOf("我", "是", "码农")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,13 @@ class Test2Activity : AppCompatActivity() {
 //        val parent: Parent = Parent()
 //        val child: Child? = parent as? Child    //加上？如果转换异常，返回null，不抛异常
 //        println(child)
+
+        for(int in arrayOfInt){
+            println(int)
+        }
+        println(arrayOfChar.joinToString(""))   //变成string
+        println(arrayOfInt.slice(1..2))  //3，5
+
     }
 
 

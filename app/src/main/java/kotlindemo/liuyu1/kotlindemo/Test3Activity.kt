@@ -12,6 +12,13 @@ class Test3Activity : AppCompatActivity() {
     val FINAL_HELLO_CHINA = "HelloChina"   //类型可以不写，自动推导
     val args: Array<String> = arrayOf("1", "2")
 
+    private val USERNAME = "kotlin"
+    private val PASSWORD = "jetbrains"
+    private val ADMIN_USER = "admin"
+    private val ADMIN_PASSWD = "admin"
+    private val DEBUG = 1
+    private val USER = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,16 +32,86 @@ class Test3Activity : AppCompatActivity() {
         //和上面等价
         println(sum.invoke(1, 3))
 
-        args.forEach ForEach@ {  //会执行方法外面的
+        args.forEach ForEach@ {
+            //会执行方法外面的
             if (it == "q") return@ForEach
             println(it)
         }
-        args.forEach {  println(it) }
+        args.forEach { println(it) }
 
         println(sum)   //Function2<java.lang.Integer, java.lang.Integer, java.lang.Integer>
         println(int2Long)   //Function1<java.lang.Integer, java.lang.Long>,最多22个参数
 //        println(::printUsage is () -> Unit)
 
+        //-name <Name>
+        if ("-name" in args) {
+            println(args[args.indexOf("-name") + 1])
+        }
+
+        if (Book() on Desk()) { // dsl,可以定制自己的表达式
+
+        }
+
+        //if不仅是是条件语句，也是表达式，可以接收参数，返回最后一行
+        val mode = if (args.isNotEmpty() && args[0] == "1") {
+            DEBUG
+        } else {
+            USER
+        }
+
+        println("请输入用户名：")
+        val username = readLine()
+        println("请输入密码：")
+        val passwd = readLine()
+
+        if (mode == DEBUG && username == ADMIN_USER && passwd == ADMIN_PASSWD) {
+            println("管理员登录成功")
+        } else if (username == USERNAME && passwd == PASSWORD) {
+            println("登录成功")
+        } else {
+            println("登录失败")
+        }
+
+        for (arg in args) {
+            println(arg)
+        }
+
+        for ((index, value) in args.withIndex()) {
+            println("$index -> $value")
+        }
+        //和上面是一样的
+        for (indexedValue in args.withIndex()) {
+            println("${indexedValue.index} -> ${indexedValue.value}")
+        }
+
+        val list = MyIntList()
+        list.add(1)
+        list.add(2)
+        list.add(3)
+        for (i in list) {
+            println(i)
+        }
+
+        val result = try{//捕获异常可以这样写，也可以像java那样写
+            args[0].toInt() / args[1].toInt()
+        }catch (e: Exception){
+            e.printStackTrace()
+            0
+        }
+        println(result)
+
+        val x = 5
+        when(x){
+            is Int -> println("Hello $x")
+            in 1..100 -> println("$x is in 1..100")
+            !in 1..100 -> println("$x is not in 1..100")
+            args[0].toInt() -> println("x == args[0]")
+        }
+
+        val mode1 = when{  //和if else一个意思
+            args.isNotEmpty() && args[0] == "1" -> 1
+            else -> 0
+        }
     }
 
 
@@ -64,6 +141,79 @@ class Test3Activity : AppCompatActivity() {
         return x.toLong()
     }
 // (Int) -> Long
+
+    class X
+
+    class A{
+        var b = 0
+        lateinit var c: String   //var延迟初始化用lateinit
+        lateinit var d: X
+        val e: X by lazy {   //val用lazy
+            println("init X")
+            X()
+        }
+
+        var cc: String? = null //初始化成null不好
+    }
+
+
+    class Complex(var real: Double, var imaginary: Double) {
+        operator fun plus(other: Complex): Complex {
+            return Complex(real + other.real, imaginary + other.imaginary)
+        }
+
+        operator fun plus(other: Int): Complex {
+            return Complex(real + other, imaginary)
+        }
+
+        operator fun plus(other: Any): Int {
+            return real.toInt()
+        }
+
+        operator fun invoke(): Double {
+            return Math.hypot(real, imaginary)
+        }
+
+        override fun toString(): String {
+            return "$real + ${imaginary}i"
+        }
+    }
+
+    class Book {
+        //中缀表达式：只有一个参数，且用infix修饰
+        infix fun on(any: Any): Boolean {
+            return false
+        }
+    }
+
+    class Desk
+
+    //iterator原理
+    class MyIterator(val iterator: Iterator<Int>) {
+        operator fun next(): Int {
+            return iterator.next()
+        }
+
+        operator fun hasNext(): Boolean {
+            return iterator.hasNext()
+        }
+    }
+
+    class MyIntList {
+        private val list = ArrayList<Int>()
+
+        fun add(int: Int) {
+            list.add(int)
+        }
+
+        fun remove(int: Int) {
+            list.remove(int)
+        }
+
+        operator fun iterator(): MyIterator {
+            return MyIterator(list.iterator())
+        }
+    }
 }
 
 

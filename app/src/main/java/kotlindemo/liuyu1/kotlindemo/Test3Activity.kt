@@ -112,8 +112,19 @@ class Test3Activity : AppCompatActivity() {
             args.isNotEmpty() && args[0] == "1" -> 1
             else -> 0
         }
+
+//        val list = arrayListOf(1,3,4,5)
+        val array = intArrayOf(1,3,4,5)
+        hello(3.0, *array)//*展开
+
     }
 
+    //默认参数，不传为默认，vararg可变参数，智能是数组不能是list
+    fun hello(double: Double, vararg ints: Int, string: String = "Hello"){
+        println(double)
+        ints.forEach(::println)
+        println(string)
+    }
 
     fun checkArgs(args: Array<String>) {
         if (args.size != 2) {

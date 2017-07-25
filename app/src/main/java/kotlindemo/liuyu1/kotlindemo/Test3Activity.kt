@@ -159,7 +159,7 @@ class Test3Activity : AppCompatActivity() {
         var b = 0
         lateinit var c: String   //var延迟初始化用lateinit
         lateinit var d: X
-        val e: X by lazy {   //val用lazy
+        val e: X by lazy {   //val用lazy代理
             println("init X")
             X()
         }

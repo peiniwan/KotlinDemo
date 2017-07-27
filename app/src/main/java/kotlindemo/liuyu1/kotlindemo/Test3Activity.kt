@@ -33,7 +33,7 @@ class Test3Activity : AppCompatActivity() {
         println(sum.invoke(1, 3))
 
         args.forEach ForEach@ {
-            //会执行方法外面的
+            //直接return下面不会执行，加上注解会结束循环，执行方法下面的
             if (it == "q") return@ForEach
             println(it)
         }
@@ -41,7 +41,7 @@ class Test3Activity : AppCompatActivity() {
 
         println(sum)   //Function2<java.lang.Integer, java.lang.Integer, java.lang.Integer>
         println(int2Long)   //Function1<java.lang.Integer, java.lang.Long>,最多22个参数
-//        println(::printUsage is () -> Unit)
+//        println(::printUsage is () -> Unit)  //没有参数没有返回值::
 
         //-name <Name>
         if ("-name" in args) {
@@ -169,7 +169,7 @@ class Test3Activity : AppCompatActivity() {
 
 
     class Complex(var real: Double, var imaginary: Double) {
-        operator fun plus(other: Complex): Complex {
+        operator fun plus(other: Complex): Complex {//operator运算符
             return Complex(real + other.real, imaginary + other.imaginary)
         }
 

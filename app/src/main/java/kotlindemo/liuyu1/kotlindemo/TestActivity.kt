@@ -82,13 +82,6 @@ class TestActivity : AppCompatActivity() {
         //如果names集合中包含text对象则打印yes
         if (text in names)
             print("yes")
-
-        names?.let {
-            //当data不为空的时候，执行语句块
-        }
-        names ?: let {
-            //相反的，以下代码当data为空时才会执行
-        }
     }
 
     fun whenTest(obj: Any) {

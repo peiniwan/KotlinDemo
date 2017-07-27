@@ -2,6 +2,7 @@ package kotlindemo.liuyu1.kotlindemo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import net.println.kotlin.chapter4.annotations.PoKo
 import kotlin.reflect.KProperty
 
 /**
@@ -56,6 +57,26 @@ class Test4Activity : AppCompatActivity() {
         //java这俩个方法是一个都是remove，所以有时候会混淆，不知道remove对象还是index
         integerList.removeAt(1)
         integerList.remove(5)
+
+        val china = Country(0, "中国")
+        println(china)
+        println(china.component1())
+        println(china.component2())
+        val (id, name) = china
+        println(id)
+        println(name)
+        val componentX = ComponentX()
+        val (a, b, c, d) = componentX
+        println("$a $b$c$d")
+
+        val inner = Outter().Inner()
+        val view = View()
+        //匿名内部类。和java不同的是，java不能继承别的东西了
+        view.onClickListener = object : Outter(), OnClickListener{
+            override fun onClick() {
+
+            }
+        }
     }
 
     abstract class Person(open val age: Int) {
@@ -189,7 +210,7 @@ class Test4Activity : AppCompatActivity() {
     //扩展方法，不用运算符operator的话，用"abc".times(16)这样来调用,jva可以类名.times("abc", 16)调用
     operator fun String.times(int: Int): String {
         val stringBuilder = StringBuilder()
-        for (i in 0 until int) {//..是到int+1
+        for (i in 0 until int) {
             stringBuilder.append(this)
         }
         return stringBuilder.toString()
@@ -209,6 +230,46 @@ class Test4Activity : AppCompatActivity() {
         fun a(int: Int = 0): Int{
             return int
         }
+    }
+
+    @PoKo//data数据类默认是final、并且没有无参构造函数的，可以通过插件解决这个问题
+    data class Country(val id: Int, val name: String)
+
+    class ComponentX{//数据类的内部实现，有几个参数就有几个 component几
+        operator fun component1(): String{
+            return "您好，我是"
+        }
+
+        operator fun component2(): Int{
+            return 1
+        }
+
+        operator fun component3(): Int{
+            return 1
+        }
+
+        operator fun component4(): Int{
+            return 0
+        }
+    }
+
+    open class Outter{
+        val a: Int = 0
+        inner class Inner{
+            val a: Int = 5
+
+            fun hello(){
+                println(this@Outter.a)//和外部类成员重复加这个注解
+            }
+        }
+    }
+
+    interface OnClickListener{
+        fun onClick()
+    }
+
+    class View{
+        var onClickListener: OnClickListener? = null
     }
 
 }

@@ -16,6 +16,7 @@ class Test5Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         //高阶函数：传入或返回函数的函数
         args.forEach(::println) //函数引用
         args.filter(String::isNotEmpty)  //包级函数

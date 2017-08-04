@@ -7,6 +7,8 @@ import kotlin.reflect.KProperty
 
 /**
  * Created by liuyu1 on 2017/7/19.
+ *
+ * 面向对象
  */
 class Test4Activity : AppCompatActivity() {
 
@@ -90,7 +92,7 @@ class Test4Activity : AppCompatActivity() {
 
     class MaNong(age: Int) : Person(age) {
 
-        override val age: Int
+        override val age: Int  //继承变量
             get() = 0
 
         override fun work() {

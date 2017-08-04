@@ -10,6 +10,11 @@ import kotlin.reflect.KProperty
 
 /**
  * Created by liuyu1 on 2017/7/19.
+ *
+ *
+ * 高阶函数：传入或返回函数的函数
+ *
+ *
  */
 class Test5Activity : AppCompatActivity() {
     val args: Array<String> = arrayOf("1", "2")
@@ -18,7 +23,6 @@ class Test5Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //高阶函数：传入或返回函数的函数
         args.forEach(::println) //函数引用
         args.filter(String::isNotEmpty)  //包级函数
         //需要类的实例才能这样用::，它有函数的引用，上面println，isNotEmpty的是包级函数所以可以直接写

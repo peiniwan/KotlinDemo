@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity
 
 /**
  * Created by liuyu1 on 2017/7/19.
+ *
+ * 程序结构
  */
 class Test3Activity : AppCompatActivity() {
     val FINAL_HELLO_WORLD: String = "HelloWorld"   //常亮

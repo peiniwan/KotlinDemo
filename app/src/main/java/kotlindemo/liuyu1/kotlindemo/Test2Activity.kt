@@ -2,6 +2,10 @@ package kotlindemo.liuyu1.kotlindemo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Gravity
+import org.jetbrains.anko.matchParent
+import org.jetbrains.anko.relativeLayout
+import org.jetbrains.anko.textView
 
 /**
  * Created by liuyu1 on 2017/7/18.
@@ -16,6 +20,15 @@ class Test2Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        relativeLayout {
+            textView(intent.extras["Key"]?.toString()?: "Hello") {
+
+            }.lparams(matchParent, matchParent){
+                gravity = Gravity.CENTER
+            }
+        }
+
         //val name: String = getName() ?: return  //如果是null就return
         //println(name.length)
         val value: String? = "HelloWorld"

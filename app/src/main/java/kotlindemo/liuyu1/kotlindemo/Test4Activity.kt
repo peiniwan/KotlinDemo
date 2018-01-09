@@ -86,7 +86,7 @@ class Test4Activity : AppCompatActivity() {
     }
 
     abstract class Person(open val age: Int) {
-        //只有open的成员和类才能被继承,借口和抽象类默认是open的
+        //只有open的成员和类才能被继承,接口和抽象类默认是open的
         abstract fun work()
     }
 
@@ -108,7 +108,7 @@ class Test4Activity : AppCompatActivity() {
 
 
     class Latitude private constructor(val value: Double) {
-        companion object {
+        companion object {//伴随对象
             //加上这个注解Java可以直接像静态那样调用，否则得Latitude.companion.ofDouble(3.0)
             @JvmStatic
             fun ofDouble(double: Double): Latitude {
@@ -187,9 +187,23 @@ class Test4Activity : AppCompatActivity() {
         }
     }
 
+    //类委托
+    interface Base {
+        fun print()
+    }
+    class BaseImpl(val x: Int) : Base {
+        override fun print() { print(x) }
+    }
+    class Derived(b: Base) : Base by b//实现继承的代替方式
+    fun main(args: Array<String>) {
+        val b = BaseImpl(10)
+        Derived(b).print() // prints 10
+    }
+
+    //属性委托
     class Delegates {
         val hello by lazy {
-            //属性代理，提供getValue
+            //提供getValue，延迟初始化
             "HelloWorld"
         }
 
@@ -212,6 +226,8 @@ class Test4Activity : AppCompatActivity() {
             this.value = value
         }
     }
+
+
 
     //扩展方法，不用运算符operator的话，用"abc".times(16)这样来调用,jva可以类名.times("abc", 16)调用
     operator fun String.times(int: Int): String {

@@ -13,6 +13,7 @@ class Test3Activity : AppCompatActivity() {
     var helloWorld: String = FINAL_HELLO_WORLD    //变量
     val FINAL_HELLO_CHINA = "HelloChina"   //类型可以不写，自动推导
     val args: Array<String> = arrayOf("1", "2")
+    val args1 = arrayOf(1,2,3)
 
     private val USERNAME = "kotlin"
     private val PASSWORD = "jetbrains"
@@ -157,18 +158,18 @@ class Test3Activity : AppCompatActivity() {
 
     class X
 
-    class A{
+    class A {
         var b = 0
         lateinit var c: String   //var延迟初始化用lateinit
         lateinit var d: X
-        val e: X by lazy {   //val用lazy代理
+        val e: X by lazy {
+            //val延迟初始化用lazy代理
             println("init X")
             X()
         }
 
         var cc: String? = null //初始化成null不好
     }
-
 
     class Complex(var real: Double, var imaginary: Double) {
         operator fun plus(other: Complex): Complex {//operator运算符

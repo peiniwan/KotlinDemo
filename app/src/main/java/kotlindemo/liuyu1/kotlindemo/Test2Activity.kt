@@ -29,10 +29,11 @@ class Test2Activity : AppCompatActivity() {
             }
         }
 
+        //kotlin默认不能空，变量类型后面跟?号定义，表明这是一个可空类型
         //val name: String = getName() ?: return  //如果是null就return
         //println(name.length)
         val value: String? = "HelloWorld"
-        println(value!!.length)//强制认定不为null
+        println(value!!.length)//强制认定不为null，无视它是否为null（最好不要用，危险npe）
 
         println(range.contains(50))  //和下面是等价的
         println(50 in range)
